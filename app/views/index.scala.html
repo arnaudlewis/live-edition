@@ -18,14 +18,14 @@
   </h2>
 
   <ul>
-    @response.results.map { document =>
+    @for(document <- response.results) {
       <li>
         <a href="@routes.Application.detail(document.id, document.slug)">
-          @document.slug
+          @document.uid.getOrElse(document.slug)
         </a>
       </li>
-    }
-  </ul>
+}
+</ul>
 
   @if(response.totalPages > 1) {
     <div>

@@ -1,9 +1,12 @@
 @(document: io.prismic.Document)(implicit ctx: PrismicHelper.Context)
 
-@main(s"Document detail ${document.slug}") {
+@main(s"Document detail ${document.typ}") {
 
-    <article id="@document.id">
-      @Html(document.asHtml(ctx.linkResolver))
+
+    <article class="@(document.typ)">
+
+	details of @document.uid.getOrElse("undefined UID")
+    
     </article>
 
 }

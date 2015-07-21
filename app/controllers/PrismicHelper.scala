@@ -10,6 +10,7 @@ import Play.current
 
 import io.prismic._
 
+
 /**
  * This Prismic object contains several helpers that make it easier
  * to build your application using both Prismic.io and Play:
@@ -73,6 +74,12 @@ object PrismicHelper {
     ctx.api.forms("everything")
       .query(Predicate.at("document.id", id))
       .ref(ctx.ref).submit() map (_.results.headOption)
+ 
+ // -- Helper: Retrieve a single document by uid
+  def getDocumentByUid(typ: String, uid: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
+    ctx.api.forms("everything")
+        .query(Predicate.at(s"my.${typ}.uid", uid))
+        .ref(ctx.ref).submit() map (_.results.headOption)
 
   // -- Helper: Retrieve several documents by Id
   def getDocuments(ids: String*)(implicit ctx: PrismicHelper.Context): Future[Seq[Document]] =
@@ -92,6 +99,13 @@ object PrismicHelper {
     document.collect {
       case document if document.slug == slug         => callback(Right(document))
       case document if document.slugs.contains(slug) => callback(Left(document.slug))
+    }.getOrElse {
+      Application.PageNotFound
+    }
+
+  def checkUid(document: Option[Document], uid: String)(callback: Either[String, Document] => Result)(implicit r: PrismicHelper.Request[_]) =
+    document.collect {
+      case document if document.uid.get == uid => callback(Right(document))
     }.getOrElse {
       Application.PageNotFound
     }

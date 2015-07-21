@@ -1,0 +1,10 @@
+@(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
+
+<div class="illustration @Some(slice.sliceLabel)">
+
+	@slice.value match {
+		case f: io.prismic.fragments.Image => {
+			<div class="illustration round-image" style="background-image: url(@f.getView("main").map(_.url).getOrElse("#"))"></div>
+		}
+	}
+</div>

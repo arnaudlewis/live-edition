@@ -52,3 +52,315 @@ Copyright 2013 Zengularity (http://www.zengularity.com).
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+
+Document Mask for page type "slicepage" : 
+
+{
+  "Content" : {
+    "body" : {
+      "fieldset" : "Dynamic page zone...",
+      "type" : "Slices",
+      "config" : {
+        "labels" : {
+          "featured_items" : [ {
+            "name" : "col-2",
+            "display" : "2 items per line"
+          }, {
+            "name" : "col-3",
+            "display" : "3 items per line"
+          } ],
+          "slides" : [ {
+            "name" : "small",
+            "display" : "Small"
+          }, {
+            "name" : "medium",
+            "display" : "Medium"
+          } ],
+          "illustration" : [ {
+            "display" : "content width",
+            "name" : "content-width"
+          } ],
+          "section_header" : [ {
+            "display" : "Centered",
+            "name" : "section-header-centered"
+          } ],
+          "separator" : [ {
+            "name" : "small",
+            "display" : "Small"
+          }, {
+            "name" : "medium",
+            "display" : "Medium"
+          } ]
+        },
+        "choices" : {
+          "alternated_highlights" : {
+            "type" : "Group",
+            "fieldset" : "Alternated highlights",
+            "config" : {
+              "fields" : {
+                "thumbnail" : {
+                  "type" : "Image",
+                  "config" : {
+                    "placeholder" : "Thumbnail",
+                    "thumbnails" : [ {
+                      "name" : "Icon",
+                      "width" : 300,
+                      "height" : 300
+                    } ]
+                  }
+                },
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Item title...",
+                    "single" : "heading3"
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "fieldset" : "Short Summary",
+                  "config" : {
+                    "placeholder" : "Item summary...",
+                    "single" : "paragraph"
+                  }
+                },
+                "illustration" : {
+                  "type" : "Image",
+                  "config" : {
+                    "constraint" : {
+                      "width" : 1400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "centered_highlight" : {
+            "type" : "Group",
+            "fieldset" : "Centered highlight",
+            "config" : {
+              "repeat" : false,
+              "fields" : {
+                "thumbnail" : {
+                  "type" : "Image",
+                  "config" : {
+                    "placeholder" : "Thumbnail",
+                    "thumbnails" : [ {
+                      "name" : "Icon",
+                      "width" : 300,
+                      "height" : 300
+                    } ]
+                  }
+                },
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Item title...",
+                    "single" : "heading3"
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "fieldset" : "Short Summary",
+                  "config" : {
+                    "placeholder" : "Item summary...",
+                    "single" : "paragraph"
+                  }
+                },
+                "illustration" : {
+                  "type" : "Image",
+                  "config" : {
+                    "constraint" : {
+                      "width" : 1800
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "featured_items" : {
+            "type" : "Group",
+            "fieldset" : "Featured items",
+            "config" : {
+              "fields" : {
+                "illustration" : {
+                  "type" : "Image",
+                  "config" : {
+                    "thumbnails" : [ {
+                      "name" : "Icon",
+                      "width" : 300,
+                      "height" : 300
+                    } ]
+                  }
+                },
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "single" : "heading3",
+                    "placeholder" : "Item title..."
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "fieldset" : "Short Summary",
+                  "config" : {
+                    "placeholder" : "Item summary...",
+                    "single" : "paragraph"
+                  }
+                },
+                "read_more" : {
+                  "type" : "Link",
+                  "config" : {
+                    "placeholder" : "Button link..."
+                  }
+                },
+                "read_more_label" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Link label...",
+                    "single" : "paragraph"
+                  }
+                }
+              }
+            }
+          },
+          "slides" : {
+            "type" : "Group",
+            "fieldset" : "Slides",
+            "config" : {
+              "fields" : {
+                "illustration" : {
+                  "type" : "Image"
+                },
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Slide title...",
+                    "multi" : "heading1,heading2"
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Short Summary..."
+                  }
+                },
+                "read_more" : {
+                  "type" : "Link",
+                  "config" : {
+                    "placeholder" : "Button link"
+                  }
+                },
+                "read_more_label" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Button label...",
+                    "single" : "paragraph"
+                  }
+                }
+              }
+            }
+          },
+          "section_header" : {
+            "type" : "Group",
+            "fieldset" : "Section Header",
+            "config" : {
+              "repeat" : false,
+              "fields" : {
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Section name...",
+                    "single" : "heading2"
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Section summary...",
+                    "single" : "paragraph"
+                  }
+                }
+              }
+            }
+          },
+          "illustration" : {
+            "type" : "Image",
+            "fieldset" : "Illustration"
+          },
+          "collapsed_items" : {
+            "type" : "Group",
+            "fieldset" : "Collapsed Items",
+            "config" : {
+              "fields" : {
+                "title" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Section name...",
+                    "single" : "paragraph"
+                  }
+                },
+                "summary" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "placeholder" : "Section summary...",
+                    "single" : "paragraph"
+                  }
+                }
+              }
+            }
+          },
+          "separator" : {
+            "type" : "Group",
+            "fieldset" : "Separator",
+            "config" : {
+              "repeat" : false,
+              "fields" : {
+                "sep" : {
+                  "type" : "Separator"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Metadata" : {
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "placeholder" : "unique-identifier-for-page-url"
+      }
+    },
+    "title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1",
+        "placeholder" : "Page meta title"
+      }
+    },
+    "children" : {
+      "fieldset" : "Child pages (used for the menu and URL hierarchy",
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "label" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Link label"
+            }
+          },
+          "link" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "masks" : [ "page", "bloghome" ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

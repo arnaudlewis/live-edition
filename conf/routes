@@ -5,6 +5,9 @@
 # Home page
 GET     /                                           controllers.Application.index(page: Int ?= 1)
 
+#Slice Page
+#GET /slicepage/:uid				controllers.SlicePageController.index(uid: String)
+
 # Document detail
 GET     /documents/$id<[-_a-zA-Z0-9]{16}>/:slug     controllers.Application.detail(id, slug)
 

@@ -1,0 +1,22 @@
+@(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
+
+<div class="centered-highlight">
+	<div class="underlay"></div>
+	@slice.value match {
+		case f: io.prismic.fragments.Group => {
+			@f.docs.zipWithIndex.map { case(doc, index) =>
+				<div class="thumbnail" style="background-image: url(@doc.getImage("thumbnail", "icon").map(_.url).getOrElse("#"))"></div>
+				<div class="text-wrapper">
+					@doc.getStructuredText("title").map{ text => 
+						@Html(text.asHtml(ctx.linkResolver)) 
+					}
+					@doc.getStructuredText("summary").map{ text => 
+						@Html(text.asHtml(ctx.linkResolver))
+					}
+				</div>
+				<img src="@doc.getImage("illustration", "main").map(_.url).getOrElse("#")"/>
+			}
+		}
+	}
+
+</div>

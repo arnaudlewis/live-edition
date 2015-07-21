@@ -1,0 +1,39 @@
+@(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
+
+<div class="alternated-highlights ">
+
+	@slice.value match {
+		case f: io.prismic.fragments.Group => {
+			@f.docs.zipWithIndex.map { case(doc, index) =>
+				@defining(if(index % 2 == 0) "alternate" else "") { odd =>
+					<div class="item @odd">
+						@if(!odd) {
+						<div class="image-container centered">
+							<img src="@doc.getImage("illustration", "main").map(_.url).getOrElse("#")" />
+						</div>
+						}
+
+						<div class="text-wrapper">
+							<div class="head-text">
+								<div class="thumbnail" style="background-image: url(@doc.getImage("thumbnail", "icon").map(_.url).getOrElse("#"))"></div>
+								@doc.getStructuredText("title").map{ text => 
+									@Html(text.asHtml(ctx.linkResolver)) 
+								}
+							</div>
+							@doc.getStructuredText("summary").map{ text => 
+								@Html(text.asHtml(ctx.linkResolver))
+							}
+							</div>
+
+						@if(odd) {
+						<div class="image-container centered">
+							<img src="@doc.getImage("illustration", "main").map(_.url).getOrElse("#")" />
+						</div>
+						}
+					</div>
+				}
+			}
+		}
+	}
+
+</div>

@@ -1,0 +1,27 @@
+@(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
+
+<div class="slider @Some(slice.sliceLabel)">
+	@slice.value match {
+		case f: io.prismic.fragments.Group => {
+		@f.docs.map { doc =>
+			<div class="slide" data-image='@doc.getImage("illustration", "main").map(_.url).getOrElse("#")'>
+				<div class="slide-container">
+					@doc.getStructuredText("title").map{ text => 
+						@Html(text.asHtml(ctx.linkResolver)) 
+					}
+					@doc.getStructuredText("summary").map{ text => 
+						@Html(text.asHtml(ctx.linkResolver))
+					}
+					@if(doc.getText("read_more_label")) {
+					<div> <!-- allow button to adapt width to its content --> 
+						<a class="button" href='@doc.getLink("read_more").map(_.getUrl(ctx.linkResolver)).getOrElse("#")'>
+							@doc.getText("read_more_label")
+						</a>
+					</div>
+					}
+				</div>
+			</div>
+		}
+	}
+}
+</div>

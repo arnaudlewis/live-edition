@@ -6,6 +6,7 @@ import scala.concurrent._
 import play.api.libs.concurrent.Execution.Implicits._
 
 import io.prismic._
+import io.prismic.fragments._
 
 object Application extends Controller with PrismicController {
 
@@ -38,10 +39,14 @@ object Application extends Controller with PrismicController {
     } yield {
       checkSlug(maybeDocument, slug) {
         case Left(newSlug)   => MovedPermanently(routes.Application.detail(id, newSlug).url)
-        case Right(document) => Ok(views.html.detail(document))
+        case Right(document) => 
+        document.typ match {
+          case "slicepage" => Ok(views.html.slicepage(document))
+          case _ => Ok(views.html.detail(document))
       }
     }
   }
+}
 
   // -- Basic Search
   def search(q: Option[String], page: Int) = PrismicAction { implicit request =>

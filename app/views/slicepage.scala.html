@@ -1,0 +1,40 @@
+@(document: io.prismic.Document)(implicit ctx: PrismicHelper.Context)
+
+@main(s"Document detail ${document.typ}") {
+
+
+  <article class="offset-1-lg offset-3-xl col-12-xl col-10-lg col-12-md col-12-sm-ls col-8-sm-pt centered container-fluid @document.typ">
+    @document.getSliceZone("slicepage.body").map { sliceZone =>
+      @for(slice <- sliceZone.slices) {
+        @slice.sliceType match {
+              
+          case "section_header" => {
+            @slices.section_header(slice)}
+              
+          case "centered_highlight" => {
+            @slices.centered_highlight(slice)}
+
+          case "centered_highlights" => {  }
+
+          case "alternated_highlights" => {
+            @slices.alternated_highlights(slice)}
+
+          case "featured_items" => {
+            @slices.featured_items(slice)}
+
+          case "collapsed_items" => {
+            @slices.collapsed_items(slice)}
+
+          case "separator" => {
+            @slices.separator(slice)}
+
+          case "illustration" => {
+            @slices.illustration(slice)}
+
+          case "slides" => {
+            @slices.slides(slice)}
+          }
+      }
+    }
+  </article>
+}

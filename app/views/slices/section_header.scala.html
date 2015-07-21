@@ -1,0 +1,19 @@
+@(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
+
+<div class="section-header @Some(slice.sliceLabel)">
+	@slice.value match {
+		case f: io.prismic.fragments.Group => {
+			@f.docs.zipWithIndex.map { case(doc, index) =>
+				<div class="text-wrapper">
+				@doc.getStructuredText("title").map{ text => 
+					@Html(text.asHtml(ctx.linkResolver)) 
+				}
+				@doc.getStructuredText("summary").map{ text => 
+					@Html(text.asHtml(ctx.linkResolver))
+				}
+				</div>
+			}
+		}
+	}
+</div>
+

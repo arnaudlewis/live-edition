@@ -1,0 +1,25 @@
+package controllers
+
+import play.api.mvc._
+import play.api.{Play, Logger}
+
+import scala.concurrent._
+import play.api.libs.concurrent.Execution.Implicits._
+
+import io.prismic._
+
+object SlicePageController extends Controller with PrismicController {
+
+   val logger = Logger("application")
+
+   def index(uid: String) = PrismicAction { implicit request =>
+    for {
+      maybeDocument <- PrismicHelper.getDocumentByUid("slicepage", uid)
+    } yield {
+      PrismicHelper.checkUid(maybeDocument, uid) {
+        case Left(newUid)   => MovedPermanently(routes.SlicePageController.index(newUid).url)
+        case Right(document) => Ok(views.html.slicepage(document))
+      }
+    }
+  }
+}
