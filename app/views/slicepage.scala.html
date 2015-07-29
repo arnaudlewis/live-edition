@@ -1,40 +1,48 @@
-@(document: io.prismic.Document)(implicit ctx: PrismicHelper.Context)
+@(document: Option[io.prismic.Document], skin : Option[io.prismic.Document])(implicit ctx: PrismicHelper.Context)
 
-@main(s"Document detail ${document.typ}") {
+@main(s"Document detail ${document.map(_.typ)}", skin) {
 
 
-  <article class="offset-1-lg offset-3-xl col-12-xl col-10-lg col-12-md col-12-sm-ls col-8-sm-pt centered container-fluid @document.typ">
-    @document.getSliceZone("slicepage.body").map { sliceZone =>
-      @for(slice <- sliceZone.slices) {
-        @slice.sliceType match {
-              
-          case "section_header" => {
+  <section class="offset-1-lg offset-3-xl col-12-xl col-10-lg col-12-md col-12-sm-ls col-8-sm-pt centered container-fluid @document.map(_.typ)">
+    @document.map(_.getSliceZone("slicepage.body")).map { sliceZone =>
+      @for(s <- sliceZone.map(_.slices)) {
+        @s.map { slice =>
+
+          @slice.sliceType.mkString match {
+
+            case "section_header" => {
             @slices.section_header(slice)}
-              
-          case "centered_highlight" => {
+
+            case "centered_highlight" => {
             @slices.centered_highlight(slice)}
 
-          case "centered_highlights" => {  }
-
-          case "alternated_highlights" => {
+            case "alternated_highlights" => {
             @slices.alternated_highlights(slice)}
 
-          case "featured_items" => {
+            case "featured_items" => {
             @slices.featured_items(slice)}
 
-          case "collapsed_items" => {
+            case "collapsed_items" => {
             @slices.collapsed_items(slice)}
 
-          case "separator" => {
+            case "separator" => {
             @slices.separator(slice)}
 
-          case "illustration" => {
+            case "illustration" => {
             @slices.illustration(slice)}
 
-          case "slides" => {
+            case "slides" => {
             @slices.slides(slice)}
+            
+            case "video_banner" => {
+            @slices.video_banner(slice)}
+
+            case "centered_highlights" => {  }
+
+            case "video-banner" => {  }
           }
+        }
       }
     }
-  </article>
+  </section>
 }

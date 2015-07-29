@@ -1,0 +1,299 @@
+@(skin: Option[io.prismic.Document])(implicit ctx: PrismicHelper.Context)
+
+@skin.map { skinDoc =>
+
+<style>
+	html * {
+		@if(skinDoc.getColor("skin.text_color")) { 
+			color: @skinDoc.getColor("skin.text_color").map(_.hex);
+		}
+	}
+
+	h1, h2, h3,
+	h4, h5, h6 {
+		@if(skinDoc.getColor("skin.headings_color")) { 
+			color: @skinDoc.getColor("skin.headings_color").map(_.hex);
+		}
+		@if(skinDoc.getNumber("skin.heading_weight")) { 
+			font-weight: @skinDoc.getNumber("skin.heading_weight").map(_.value.toString.trim);
+		}
+	}
+
+	h1 {
+		@if(skinDoc.getNumber("skin.h1_size")) { 
+			font-size: @skinDoc.getNumber("skin.h1_size").map(_.value.toString.trim)rem;
+		}
+	}
+
+	h2 {
+		@if(skinDoc.getNumber("skin.h2_size")) { 
+			font-size: @skinDoc.getNumber("skin.h2_size").map(_.value.toString.trim)rem;
+		}
+	}
+
+	h3 {
+		@if(skinDoc.getNumber("skin.h3_size")) { 
+			font-size: @skinDoc.getNumber("skin.h3_size").map(_.value.toString.trim)rem;
+		}
+	}
+
+	h4 {
+		@if(skinDoc.getNumber("skin.h4_size")) { 
+			font-size: @skinDoc.getNumber("skin.h4_size").map(_.value.toString.trim)rem;
+		} 
+	}
+
+	h5 {
+		@if(skinDoc.getNumber("skin.h5_size")) { 
+			font-size: @skinDoc.getNumber("skin.h5_size").map(_.value.toString.trim)rem;
+		}
+	}
+
+	h6 {
+		@if(skinDoc.getNumber("skin.h6_size")) { 
+			font-size: @skinDoc.getNumber("skin.h6_size").map(_.value.toString.trim)rem;
+		} 
+	}
+
+	.button {
+		@if(skinDoc.getColor("skin.button_background")) { 
+			background-color: @skinDoc.getColor("skin.button_background").map(_.hex); 
+		}
+		@if(skinDoc.getColor("skin.button_text")) { 
+			color: @skinDoc.getColor("skin.button_text").map(_.hex); 
+		}
+	}
+
+	.read-more-button {
+		@if(skinDoc.getColor("skin.read_more_text")) { 
+			color: @skinDoc.getColor("skin.read_more_text").map(_.hex);
+			border: 1px solid @skinDoc.getColor("skin.read_more_text").map(_.hex);
+		}
+	}
+
+	.read-more-button:hover {
+		@if(skinDoc.getColor("skin.read_more_hover_text")) { 
+			color: @skinDoc.getColor("skin.read_more_text").map(_.hex); 
+		}
+		@if(skinDoc.getColor("skin.read_more_hover_background")) { 
+			border: 1px solid @skinDoc.getColor("skin.read_more_hover_background").map(_.hex);
+			background-color: @skinDoc.getColor("skin.read_more_hover_background").map(_.hex);
+		}
+	}
+
+	.accordions * {
+		@if(skinDoc.getColor("skin.accordion_text")) { 
+			color: @skinDoc.getColor("skin.accordion_text").map(_.hex); 
+		}
+	}
+
+	.accordions .item label {
+		@if(skinDoc.getColor("skin.accordion_background")) { 
+			background-color: @skinDoc.getColor("skin.accordion_background").map(_.hex); 
+		}
+	}
+
+	.accordions .item label .accordion-arrow:after {
+		@if(skinDoc.getColor("skin.accordion_icon")) { 
+			color: @skinDoc.getColor("skin.accordion_icon").map(_.hex); 
+		}
+	}
+
+	.alternated-highlights .item.alternate {
+		@if(skinDoc.getColor("skin.alternate_highlights_background")) { 
+			background-color: @skinDoc.getColor("skin.alternate_highlights_background").map(_.hex); 
+		}
+	}
+
+	.centered-highlight .underlay {
+		@if(skinDoc.getColor("skin.centered_highlight_underlay")) { 
+			background-color: @skinDoc.getColor("skin.centered_highlight_underlay").map(_.hex); 
+		}
+	}
+
+	.featured-items .read-more-button {
+		@if(skinDoc.getColor("skin.featured_items_button_text")) { 
+			color: @skinDoc.getColor("skin.featured_items_button_text").map(_.hex); 
+			border: 1px solid @skinDoc.getColor("skin.featured_items_button_text").map(_.hex); 
+		}
+	}
+
+	.featured-items .read-more-button:hover {
+		@if(skinDoc.getColor("skin.featured_items_hover_button_background")) { 
+			border: 1px solid @skinDoc.getColor("skin.featured_items_hover_button_background").map(_.hex);
+			background: @skinDoc.getColor("skin.featured_items_hover_button_background").map(_.hex);
+		}
+		@if(skinDoc.getColor("skin.featured_items_hover_button_text")) { 
+			color: @skinDoc.getColor("skin.featured_items_hover_button_text").map(_.hex); 
+		}
+	}
+
+	.section-header {
+		@if(skinDoc.getColor("skin.section_header_color")) { 
+			color: @skinDoc.getColor("skin.section_header_color").map(_.hex); 
+		}
+	}
+	.section-header.section-header-centered {
+		@if(skinDoc.getColor("skin.section_header_center_background")) { 
+			background-color: @skinDoc.getColor("skin.section_header_center_background").map(_.hex); 
+		}
+	}
+	.section-header.section-header-centered * {
+		@if(skinDoc.getColor("skin.section_header_center_text")) { 
+			color: @skinDoc.getColor("skin.section_header_center_text").map(_.hex); 
+		}
+	}
+
+	hr.separator {
+		@if(skinDoc.getNumber("skin.separator_height")) { 
+			height: @skinDoc.getNumber("skin.separator_height").map(_.value)rem;
+		}
+	}
+	hr.separator.medium {
+		@if(skinDoc.getNumber("skin.medium_separator_height")) { 
+			height: @skinDoc.getNumber("skin.medium_separator_height").map(_.value)rem;
+		}
+	}
+	hr.separator.small {
+		@if(skinDoc.getNumber("skin.small_separator_height")) { 
+			height: @skinDoc.getNumber("skin.small_separator_height").map(_.value)rem;
+		}
+	}
+
+	.slider, .slider .slide {
+		@if(skinDoc.getNumber("skin.slider_height")) { 
+			height: @skinDoc.getNumber("skin.slider_height").map(_.value.toString.trim)vh;
+		}
+	}
+	.slider .slide {
+		@if(skinDoc.getColor("skin.slider_blank_color")) { 
+			background-color: @skinDoc.getColor("skin.slider_blank_color").map(_.hex); 
+		}
+	}
+	.slider.slider-dark * {
+		@if(skinDoc.getColor("skin.slider_dark_text")) { 
+			color: @skinDoc.getColor("skin.slider_dark_text").map(_.hex); 
+		}
+	}
+	.slider.slider-dark .slide::before {
+		@if(skinDoc.getColor("skin.slider_dark_overlay")) { 
+			background-color: @skinDoc.getColor("skin.slider_dark_overlay").map(_.hex); 
+		}
+		@if(skinDoc.getNumber("skin.slider_overlay_opacity")) { 
+			opacity: @skinDoc.getNumber("skin.slider_overlay_opacity").map(_.value.toString.trim);
+		}
+	}
+	.slider.slider-light * {
+		@if(skinDoc.getColor("skin.slider_light_text")) { 
+			color: @skinDoc.getColor("skin.slider_light_text").map(_.hex); 
+		}
+	}
+	.slider.slider-light .slide::before {
+		@if(skinDoc.getColor("skin.slider_light_overlay")) { 
+			background-color: @skinDoc.getColor("skin.slider_light_overlay").map(_.hex); 
+		}
+		@if(skinDoc.getNumber("skin.slider_overlay_opacity")) { 
+			opacity: @skinDoc.getNumber("skin.slider_overlay_opacity").map(_.value.toString.trim);
+		}
+	}
+	.slider.medium, .slider.medium .slide {
+		@if(skinDoc.getNumber("skin.medium_slider_height")) { 
+			height: @skinDoc.getNumber("skin.medium_slider_height").map(_.value)vh;
+		}
+	}
+	.slider.small, .slider.small .slide {
+		@if(skinDoc.getNumber("skin.small_slider_height")) { 
+			height: @skinDoc.getNumber("skin.small_slider_height").map(_.value)vh;
+		}
+	}
+	.slider .button {
+		@if(skinDoc.getColor("skin.slider_button_background")) { 
+			background-color: @skinDoc.getColor("skin.slider_button_background").map(_.hex); 
+		}
+		@if(skinDoc.getColor("skin.slider_button_text")) { 
+			color: @skinDoc.getColor("skin.slider_button_text").map(_.hex); 
+		}
+	}
+
+	.video-banner, .video-banner .video, .video-banner video {
+		@if(skinDoc.getNumber("skin.video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.video-banner-dark .video {
+		@if(skinDoc.getColor("skin.video_banner_dark_background")) { 
+			background-color: @skinDoc.getColor("skin.video_banner_dark_background").map(_.hex); 
+		}
+	}
+	.video-banner.video-banner-dark .video * {
+		@if(skinDoc.getColor("skin.video_banner_dark_text")) { 
+			color: @skinDoc.getColor("skin.video_banner_dark_text").map(_.hex); 
+		}
+	}
+	.video-banner.video-banner-dark .video::before {
+		@if(skinDoc.getColor("skin.video_banner_dark_overlay")) { 
+			background-color: @skinDoc.getColor("skin.video_banner_dark_overlay").map(_.hex); 
+		}
+		@if(skinDoc.getNumber("skin.video_banner_overlay_opacity")) { 
+			opacity: @skinDoc.getNumber("skin.video_banner_overlay_opacity").map(_.value.toString.trim);
+		}
+	}
+	.video-banner.video-banner-light .video {
+		@if(skinDoc.getColor("skin.video_banner_light_background")) { 
+			background-color: @skinDoc.getColor("skin.video_banner_light_background").map(_.hex); 
+		}
+	}
+	.video-banner.video-banner-light .video * {
+		@if(skinDoc.getColor("skin.video_banner_light_text")) { 
+			color: @skinDoc.getColor("skin.video_banner_light_text").map(_.hex); 
+		}
+	}
+	.video-banner.video-banner-light .video::before {
+		@if(skinDoc.getColor("skin.video_banner_light_overlay")) { 
+			background-color: @skinDoc.getColor("skin.video_banner_light_overlay").map(_.hex); 
+		}
+		@if(skinDoc.getNumber("skin.video_banner_overlay_opacity")) { 
+			opacity: @skinDoc.getNumber("skin.video_banner_overlay_opacity").map(_.value.toString.trim);
+		}
+	}
+	.video-banner.medium{
+		@if(skinDoc.getNumber("skin.medium_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.medium_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.medium .video{
+		@if(skinDoc.getNumber("skin.medium_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.medium_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.medium .video video {
+		@if(skinDoc.getNumber("skin.medium_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.medium_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.small {
+		@if(skinDoc.getNumber("skin.small_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.small_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.small .video{
+		@if(skinDoc.getNumber("skin.small_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.small_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner.small .video video {
+		@if(skinDoc.getNumber("skin.small_video_banner_height")) { 
+			height: @skinDoc.getNumber("skin.small_video_banner_height").map(_.value)vh;
+		}
+	}
+	.video-banner .button {
+		@if(skinDoc.getColor("skin.video_banner_button_background")) { 
+			background-color: @skinDoc.getColor("skin.video_banner_button_background").map(_.hex); 
+		}
+		@if(skinDoc.getColor("skin.video_banner_button_text")) { 
+			color: @skinDoc.getColor("skin.video_banner_button_text").map(_.hex); 
+		}
+	}
+
+</style>
+}

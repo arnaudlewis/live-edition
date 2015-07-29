@@ -1,12 +1,12 @@
 @(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
 
-<div class="featured-items centered">
+<div class="featured-items">
 	@slice.value match {
 		case f: io.prismic.fragments.Group => {
 			@f.docs.zipWithIndex.map { case(doc, index) =>
-				@defining(if(slice.sliceLabel == Some("col-2")) "col-8-sm-pt col-6-sm-ls col-6 col-9-xl" else if(slice.sliceLabel == Some("col-3")) "col-8-sm-pt col-6-sm-ls col-4 col-6-xl"  else "col-8-sm-pt col-6-sm-ls col-4 col-4-xl") { position =>
+				@defining(if(slice.sliceLabel == Some("col-2")) "col-8-sm-pt col-6-sm-ls col-6 col-9-xl" else "col-8-sm-pt col-6-sm-ls col-4") { position =>
 					<div class="item centered @position">
-					<div class="illustration" style="background-image: url(@doc.getImage("illustration", "icon").map(_.url).getOrElse("#"))"></div>
+					<div class="thumbnail" style="background-image: url(@doc.getImage("illustration", "icon").map(_.url).getOrElse("#"))"></div>
 					<div class="text-wrapper">
 						@doc.getStructuredText("title").map{ text => 
 							@Html(text.asHtml(ctx.linkResolver)) 

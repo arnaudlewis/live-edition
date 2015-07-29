@@ -5,6 +5,7 @@
 		case f: io.prismic.fragments.Group => {
 		@f.docs.map { doc =>
 			<div class="slide" data-image='@doc.getImage("illustration", "main").map(_.url).getOrElse("#")'>
+			<a href="#" class="arrow-prev"><i class="icon-arrow-prev"></i></a>
 				<div class="slide-container">
 					@doc.getStructuredText("title").map{ text => 
 						@Html(text.asHtml(ctx.linkResolver)) 
@@ -20,6 +21,7 @@
 					</div>
 					}
 				</div>
+				<a href="#" class="arrow-next"><i class="icon-arrow-next"></i></a>
 			</div>
 		}
 	}

@@ -68,12 +68,6 @@ object PrismicHelper {
   // -- Fetch the API entry document
   def apiHome(token: Option[String] = None) =
     Api.get(config("prismic.api"), accessToken = token, cache = Cache, logger = Logger)
-
-  // -- Helper: Retrieve a single document by Id
-  def getDocument(id: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
-    ctx.api.forms("everything")
-      .query(Predicate.at("document.id", id))
-      .ref(ctx.ref).submit() map (_.results.headOption)
  
  // -- Helper: Retrieve a single document by uid
   def getDocumentByUid(typ: String, uid: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
@@ -81,33 +75,9 @@ object PrismicHelper {
         .query(Predicate.at(s"my.${typ}.uid", uid))
         .ref(ctx.ref).submit() map (_.results.headOption)
 
-  // -- Helper: Retrieve several documents by Id
-  def getDocuments(ids: String*)(implicit ctx: PrismicHelper.Context): Future[Seq[Document]] =
-    ids match {
-      case Nil => Future.successful(Nil)
-      case ids => ctx.api.forms("everything")
-        .query(Predicate.any("document.id", ids))
+  // -- Helper: Retrieve a list of documents by Type
+  def getDocumentsByType(typ: String)(implicit ctx: PrismicHelper.Context): Future[Seq[Document]] =
+    ctx.api.forms("everything")
+        .query(Predicate.at("document.type", typ))
         .ref(ctx.ref).submit() map (_.results)
-    }
-
-  // -- Helper: Retrieve a single document from its bookmark
-  def getBookmark(bookmark: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
-    ctx.api.bookmarks.get(bookmark).map(id => getDocument(id)).getOrElse(Future.successful(None))
-
-  // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
-  def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => Result)(implicit r: PrismicHelper.Request[_]) =
-    document.collect {
-      case document if document.slug == slug         => callback(Right(document))
-      case document if document.slugs.contains(slug) => callback(Left(document.slug))
-    }.getOrElse {
-      Application.PageNotFound
-    }
-
-  def checkUid(document: Option[Document], uid: String)(callback: Either[String, Document] => Result)(implicit r: PrismicHelper.Request[_]) =
-    document.collect {
-      case document if document.uid.get == uid => callback(Right(document))
-    }.getOrElse {
-      Application.PageNotFound
-    }
-
 }

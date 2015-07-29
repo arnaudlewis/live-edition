@@ -1,21 +1,25 @@
 @(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
 
-<div class="collapsed-items">
+<div class="accordions">
 	@slice.value match {
 		case f: io.prismic.fragments.Group => {
 			@f.docs.zipWithIndex.map { case(doc, index) =>
-				<div class="text-wrapper">
-					<div class="title">
+			<div class="item">
+				<label>
+					<input  type="checkbox" />
+					<span>
 						@doc.getStructuredText("title").map{ text => 
 							@Html(text.asHtml(ctx.linkResolver)) 
 						}
-					</div>
-					<div class="collapsed-block">
-						@doc.getStructuredText("summary").map{ text => 
-							@Html(text.asHtml(ctx.linkResolver))
-						}
-					</div>
+					</span>
+					<i class="accordion-arrow"></i>
+				</label>
+				<div class="summary">
+					@doc.getStructuredText("summary").map{ text => 
+						@Html(text.asHtml(ctx.linkResolver))
+					}
 				</div>
+			</div>
 			}
 		}
 	}
