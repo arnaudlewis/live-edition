@@ -286,12 +286,14 @@
 			height: @skinDoc.getNumber("skin.small_video_banner_height").map(_.value)vh;
 		}
 	}
-	.video-banner .button {
-		@if(skinDoc.getColor("skin.video_banner_button_background")) { 
-			background-color: @skinDoc.getColor("skin.video_banner_button_background").map(_.hex); 
-		}
+	.video-banner.video-banner-dark .video .play {
 		@if(skinDoc.getColor("skin.video_banner_button_text")) { 
 			color: @skinDoc.getColor("skin.video_banner_button_text").map(_.hex); 
+		}
+	}
+	.video-banner .video .video-container .play::after {
+		@if(skinDoc.getColor("skin.video_banner_button_border")) { 
+			border-color: @skinDoc.getColor("skin.video_banner_button_border").map(_.hex); 
 		}
 	}
 
