@@ -11,7 +11,9 @@
 					Your browser does not support html5 video. 
 				</video>
 				<div class="video-container">
-				<span class="play"></span>
+				@if(doc.getText("video_interactive") == Some("Enabled")) {
+					<span class="play"></span>
+				}
 					<div class="title">
 					@doc.getStructuredText("title").map{ text => 
 						@Html(text.asHtml(ctx.linkResolver)) 
