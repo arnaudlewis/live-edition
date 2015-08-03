@@ -14,19 +14,31 @@ object Application extends Controller with PrismicController {
 
   // -- Resolve links to documents
   def linkResolver(api: Api)(implicit request: RequestHeader) = DocumentLinkResolver(api) {
-    case (docLink, maybeBookmarked) if !docLink.isBroken => routes.Application.slicepage(docLink.uid.get).absoluteURL()
+    case (docLink, maybeBookmarked) if !docLink.isBroken => routes.Application.slicepage(docLink.uid.getOrElse("#")).absoluteURL()
+    case _ => routes.Application.brokenLink().absoluteURL()
+  }
+
+  // -- Page not found
+  def PageNotFound(implicit ctx: PrismicHelper.Context) = NotFound(views.html.pageNotFound())
+
+  def brokenLink = PrismicAction { implicit request =>
+    Future.successful(PageNotFound)
   }
 
    // -- Slicepage
-   def slicepage(uid: String) = PrismicAction { implicit request =>
+  def slicepage(uid: String) = PrismicAction { implicit request =>
 
-    val futureSkin =   getDocumentsByType("skin");
+    val futureSkin =   getBookmarkedDocument("skin")
     val futurePage = getDocumentByUid("slicepage", uid) 
     for (
       page <- futurePage;
+      currentUid = page.map(_.uid);
       skin <- futureSkin
       ) yield (
-        Ok(views.html.slicepage(page, skin.headOption))
+        if(currentUid.flatten.getOrElse("#") != uid)
+          Results.Redirect(routes.Application.slicepage(uid)) 
+        else
+          Ok(views.html.slicepage(page.get, skin))
       )
-    } 
-  } 
+    }
+  }

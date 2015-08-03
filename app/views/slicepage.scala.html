@@ -1,46 +1,43 @@
-@(document: Option[io.prismic.Document], skin : Option[io.prismic.Document])(implicit ctx: PrismicHelper.Context)
+@(document: io.prismic.Document, skin : Option[io.prismic.Document])(implicit ctx: PrismicHelper.Context)
 
-@main(s"Document detail ${document.map(_.typ)}", skin) {
+@main(s"Document detail ${document.typ}", skin) {
 
 
-  <section class="offset-1-lg offset-3-xl col-12-xl col-10-lg col-12-md col-12-sm-ls col-8-sm-pt centered container-fluid @document.map(_.typ)">
-    @document.map(_.getSliceZone("slicepage.body")).map { sliceZone =>
-      @for(s <- sliceZone.map(_.slices)) {
-        @s.map { slice =>
+  <section class="col-12 centered @document.typ" style="max-width: 1280px; margin: auto">
+    @document.getSliceZone("slicepage.body").map { sliceZone =>
+      @for(slice <- sliceZone.slices) {
 
           @slice.sliceType.mkString match {
 
-            case "section_header" => {
-            @slices.section_header(slice)}
+          case "section_header" => {
+          @slices.section_header(slice)}
 
-            case "centered_highlight" => {
-            @slices.centered_highlight(slice)}
+          case "centered_highlight" => {
+          @slices.centered_highlight(slice)}
 
-            case "alternated_highlights" => {
-            @slices.alternated_highlights(slice)}
+          case "alternated_highlights" => {
+          @slices.alternated_highlights(slice)}
 
-            case "featured_items" => {
-            @slices.featured_items(slice)}
+          case "featured_items" => {
+          @slices.featured_items(slice)}
 
-            case "collapsed_items" => {
-            @slices.collapsed_items(slice)}
+          case "collapsed_items" => {
+          @slices.collapsed_items(slice)}
 
-            case "separator" => {
-            @slices.separator(slice)}
+          case "separator" => {
+          @slices.separator(slice)}
 
-            case "illustration" => {
-            @slices.illustration(slice)}
+          case "illustration" => {
+          @slices.illustration(slice)}
 
-            case "slides" => {
-            @slices.slides(slice)}
-            
-            case "video_banner" => {
-            @slices.video_banner(slice)}
+          case "slides" => {
+          @slices.slides(slice)}
 
-            case "centered_highlights" => {  }
+          case "video_banner" => {
+          @slices.video_banner(slice)}
 
-            case "video-banner" => {  }
-          }
+          case "centered_highlights" => {}
+          case "video-banner" => {}
         }
       }
     }

@@ -1,10 +1,15 @@
 @(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
 
+<style>
+	.twice {
+		margin: 0 2rem;
+	}
+</style>
 <div class="featured-items">
 	@slice.value match {
 		case f: io.prismic.fragments.Group => {
 			@f.docs.zipWithIndex.map { case(doc, index) =>
-				@defining(if(slice.sliceLabel == Some("col-2")) "col-8-sm-pt col-6-sm-ls col-6 col-9-xl" else "col-8-sm-pt col-6-sm-ls col-4") { position =>
+				@defining(if(slice.sliceLabel == Some("col-2")) "twice col-8-sm-pt col-6-sm-ls col-4" else "col-8-sm-pt col-6-sm-ls col-4") { position =>
 					<div class="item centered @position">
 					<div class="thumbnail" style="background-image: url(@doc.getImage("illustration", "icon").map(_.url).getOrElse("#"))"></div>
 					<div class="text-wrapper">
