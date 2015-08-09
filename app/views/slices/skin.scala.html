@@ -128,19 +128,51 @@
 		}
 	}
 
-	.section-header {
-		@if(skinDoc.getColor("skin.section_header_color")) { 
-			color: @skinDoc.getColor("skin.section_header_color").map(_.hex); 
+	.section-header * {
+		@if(skinDoc.getColor("skin.section_header_text")) { 
+			color: @skinDoc.getColor("skin.section_header_text").map(_.hex); 
 		}
 	}
+
+	.section-header {
+		@if(skinDoc.getColor("skin.section_header_background")) { 
+			background-color: @skinDoc.getColor("skin.section_header_background").map(_.hex); 
+		}
+	}
+
+	.section-header .button {
+		@if(skinDoc.getColor("skin.section_header_button_text")) { 
+			color: @skinDoc.getColor("skin.section_header_button_text").map(_.hex); 
+		}
+	}
+
+	.section-header .button {
+		@if(skinDoc.getColor("skin.section_header_button_background")) { 
+			background-color: @skinDoc.getColor("skin.section_header_button_background").map(_.hex); 
+		}
+	}
+
+	.section-header.section-header-centered *{
+		@if(skinDoc.getColor("skin.section_header_center_text")) { 
+			color: @skinDoc.getColor("skin.section_header_center_text").map(_.hex); 
+		}
+	}
+
 	.section-header.section-header-centered {
 		@if(skinDoc.getColor("skin.section_header_center_background")) { 
 			background-color: @skinDoc.getColor("skin.section_header_center_background").map(_.hex); 
 		}
 	}
-	.section-header.section-header-centered * {
-		@if(skinDoc.getColor("skin.section_header_center_text")) { 
-			color: @skinDoc.getColor("skin.section_header_center_text").map(_.hex); 
+
+	.section-header.section-header-centered .button {
+		@if(skinDoc.getColor("skin.section_header_center_button_text")) { 
+			color: @skinDoc.getColor("skin.section_header_center_button_text").map(_.hex); 
+		}
+	}
+
+	.section-header.section-header-centered .button {
+		@if(skinDoc.getColor("skin.section_header_center_button_background")) { 
+			background-color: @skinDoc.getColor("skin.section_header_center_button_background").map(_.hex); 
 		}
 	}
 

@@ -37,7 +37,7 @@ import io.prismic._
 
   // Helper method to read the Play application configuration
   private def config(key: String) =
-  Play.configuration.getString(key).getOrElse(sys.error(s"Missing configuration [$key]"))
+    Play.configuration.getString(key).getOrElse(sys.error(s"Missing configuration [$key]"))
 
   // -- Define a `Prismic request` that contain both the original request and the Prismic call context
   case class Request[A](request: play.api.mvc.Request[A], ctx: Context) extends WrappedRequest(request)
@@ -55,37 +55,37 @@ import io.prismic._
   def buildContext()(implicit request: RequestHeader) = {
     val token = request.session.get(ACCESS_TOKEN).orElse(Play.configuration.getString("prismic.token"))
     apiHome(token) map { api =>
-      val ref = {
-        request.cookies.get(Prismic.experimentsCookie) map (_.value) flatMap api.experiments.refFromCookie
-        } getOrElse api.master.ref
-        Context(api, ref, token, Application.linkResolver(api)(request))
-      }
+    val ref = {
+      request.cookies.get(Prismic.experimentsCookie) map (_.value) flatMap api.experiments.refFromCookie
+    } getOrElse api.master.ref
+      Context(api, ref, token, Application.linkResolver(api)(request))
     }
+  }
 
   // -- Retrieve the Prismic Context from a request handled by an built using Prismic.action
   def ctx(implicit req: Request[_]) = req.ctx
 
   // -- Fetch the API entry document
   def apiHome(token: Option[String] = None) =
-  Api.get(config("prismic.api"), accessToken = token, cache = Cache, logger = Logger)
+    Api.get(config("prismic.api"), accessToken = token, cache = Cache, logger = Logger)
 
  // -- Helper: Retrieve a single document by uid
  def getDocumentByUid(typ: String, uid: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
- ctx.api.forms("everything")
- .query(Predicate.at(s"my.${typ}.uid", uid))
- .ref(ctx.ref).submit() map (_.results.headOption)
+   ctx.api.forms("everything")
+   .query(Predicate.at(s"my.${typ}.uid", uid))
+   .ref(ctx.ref).submit() map (_.results.headOption)
 
   // -- Helper: Retrieve a list of documents by Type
   def getDocumentsByType(typ: String)(implicit ctx: PrismicHelper.Context): Future[Seq[Document]] =
-  ctx.api.forms("everything")
-  .query(Predicate.at("document.type", typ))
-  .ref(ctx.ref).submit() map (_.results)
+    ctx.api.forms("everything")
+    .query(Predicate.at("document.type", typ))
+    .ref(ctx.ref).submit() map (_.results)
 
   def getDocument(id: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
-  ctx.api.forms("everything")
-  .query(Predicate.at("document.id", id))
-  .ref(ctx.ref).submit() map (_.results.headOption)
+    ctx.api.forms("everything")
+    .query(Predicate.at("document.id", id))
+    .ref(ctx.ref).submit() map (_.results.headOption)
 
   def getBookmarkedDocument(bookmark: String)(implicit ctx: PrismicHelper.Context): Future[Option[Document]] =
-  ctx.api.bookmarks.get(bookmark).map(id => getDocument(id)).getOrElse(Future.successful(None))
+    ctx.api.bookmarks.get(bookmark).map(id => getDocument(id)).getOrElse(Future.successful(None))
 }

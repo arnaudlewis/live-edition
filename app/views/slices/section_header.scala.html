@@ -1,9 +1,10 @@
 @(slice: io.prismic.fragments.Slice)(implicit ctx: PrismicHelper.Context)
-
-<div class="section-header @Some(slice.sliceLabel)">
+	
 	@slice.value match {
 		case f: io.prismic.fragments.Group => {
 			@f.docs.zipWithIndex.map { case(doc, index) =>
+			<div class="section-header @Some(slice.sliceLabel)" 
+			@if(doc.getImage("background", "main")) { style="background-image: url('@doc.getImage("background", "main").map(_.url).getOrElse("")')"}>
 				<div class="text-wrapper">
 				@doc.getStructuredText("title").map{ text => 
 					@Html(text.asHtml(ctx.linkResolver)) 
@@ -11,7 +12,19 @@
 				@doc.getStructuredText("summary").map{ text => 
 					@Html(text.asHtml(ctx.linkResolver))
 				}
+				@if(doc.getText("read_more_label")) {
+					<div> <!-- allow button to adapt width to its content --> 
+						<a class="button" href='@doc.getLink("read_more").map(_.getUrl(ctx.linkResolver)).getOrElse("#")'>
+							@doc.getText("read_more_label")
+						</a>
+					</div>
+				}
 				</div>
+				@if(doc.getImage("illustration", "main")) {
+					<div class="image-container centered">
+						<img src="@doc.getImage("illustration", "main").map(_.url).getOrElse("#")" />
+					</div>
+				}
 			}
 		}
 	}

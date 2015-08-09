@@ -4,7 +4,7 @@
 
 	@slice.value match {
 		case f: io.prismic.fragments.Image => {
-			<div class="image" style="background-image: url(@f.getView("main").map(_.url).getOrElse("#"))"></div>
+			<img src="@f.getView("main").map(_.url).getOrElse("#")" />
 		}
 	}
 </div>

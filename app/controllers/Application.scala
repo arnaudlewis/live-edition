@@ -14,7 +14,7 @@ object Application extends Controller with PrismicController {
 
   // -- Resolve links to documents
   def linkResolver(api: Api)(implicit request: RequestHeader) = DocumentLinkResolver(api) {
-    case (docLink, maybeBookmarked) if !docLink.isBroken => routes.Application.slicepage(docLink.uid.getOrElse("#")).absoluteURL()
+    case (docLink, maybeBookmarked) if !docLink.isBroken => routes.Application.slicepage(docLink.uid.getOrElse(throw new IllegalArgumentException("The UID must be initialised. It can't be null."))).absoluteURL()
     case _ => routes.Application.brokenLink().absoluteURL()
   }
 
@@ -26,19 +26,18 @@ object Application extends Controller with PrismicController {
   }
 
    // -- Slicepage
-  def slicepage(uid: String) = PrismicAction { implicit request =>
+   def slicepage(uid: String) = PrismicAction { implicit request =>
 
-    val futureSkin =   getBookmarkedDocument("skin")
-    val futurePage = getDocumentByUid("slicepage", uid) 
-    for (
-      page <- futurePage;
-      currentUid = page.map(_.uid);
-      skin <- futureSkin
-      ) yield (
-        if(currentUid.flatten.getOrElse("#") != uid)
-          Results.Redirect(routes.Application.slicepage(uid)) 
-        else
-          Ok(views.html.slicepage(page.get, skin))
-      )
+    getDocumentByUid("slicepage", uid).flatMap { maybePage =>
+      maybePage.map { page =>
+        val currentUid = page.uid.getOrElse(throw new IllegalArgumentException("The UID must be initialised. It can't be null."));
+        if(currentUid != uid)
+        Future.successful(Results.Redirect(routes.Application.slicepage(uid)))
+        else 
+        getBookmarkedDocument("skin").map {maybeSkin => 
+          Ok(views.html.slicepage(page, maybeSkin))
+        }
+        } getOrElse(Future.successful(Results.Redirect(routes.Application.brokenLink().absoluteURL())))
+      } 
     }
   }

@@ -1,3 +1,43 @@
 body {
-	background-color: #162C4B;
+  background: #1a2d4a url("../images/background.png");
+  background-repeat: repeat-x;
 }
+
+header {
+  max-width: 1280px;
+  position: relative;
+  height: 6rem;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  z-index: 1000;
+  margin: auto;
+}
+
+header h1 a {
+  display: block;
+  text-indent: -999em;
+  width: 9rem;
+  background: url("../images/logo.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+  header {
+    height: 4rem;
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) and (max-width: 767px) {
+    header {
+    height: 4rem;
+    h1 {
+      margin: 0;
+    }
+  }
+  }
