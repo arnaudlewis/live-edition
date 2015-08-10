@@ -6,9 +6,7 @@
 		@f.docs.map { doc =>	
 			<div class="video">
 			<!-- autoplay loop=1 -->
-				<video width="100%" @if(doc.getText("video_autoplay") == Some("Enabled")) { autoplay } @if(doc.getText("video_loop") == Some("Enabled")) { loop=1 } preload="none" poster="@doc.getLink("illustration").map(_.getUrl(ctx.linkResolver)).getOrElse("#")" onclick="this.play();">  
-					<source src="@doc.getLink("video_link").map(_.getUrl(ctx.linkResolver)).getOrElse("#")" width="auto" type="video/mp4" /> 
-					Your browser does not support html5 video. 
+				<video muted width="100%" @if(doc.getText("video_autoplay") == Some("Enabled")) { autoplay } @if(doc.getText("video_loop") == Some("Enabled")) { loop=1 } preload="none" poster="@doc.getLink("illustration").map(_.getUrl(ctx.linkResolver)).getOrElse("#")" src="@doc.getLink("video_link").map(_.getUrl(ctx.linkResolver)).getOrElse("#")" onclick="this.play();">  
 				</video>
 				<div class="video-container">
 				@if(doc.getText("video_interactive") == Some("Enabled")) {
