@@ -152,6 +152,9 @@ html * {
   color: #4e4e4e;
   box-sizing: border-box; }
 
+html, body {
+  width: 100%; }
+
 h1, h2, h3,
 h4, h5, h6 {
   color: #181818;
@@ -2383,9 +2386,12 @@ html {
         overflow: hidden;
         max-height: 10.2rem;
         margin: 1.5rem; }
-        .video-banner .video .video-container .title h1 *, .video-banner .video .video-container .title h2 *, .video-banner .video .video-container .title h3 *,
-        .video-banner .video .video-container .title h4 *, .video-banner .video .video-container .title h5 *, .video-banner .video .video-container .title h6 * {
-          margin: 0 0 0.2rem 0; }
+        .video-banner .video .video-container .title h1, .video-banner .video .video-container .title h2, .video-banner .video .video-container .title h3,
+        .video-banner .video .video-container .title h4, .video-banner .video .video-container .title h5, .video-banner .video .video-container .title h6 {
+          margin: 0; }
+          .video-banner .video .video-container .title h1 *, .video-banner .video .video-container .title h2 *, .video-banner .video .video-container .title h3 *,
+          .video-banner .video .video-container .title h4 *, .video-banner .video .video-container .title h5 *, .video-banner .video .video-container .title h6 * {
+            margin: 0 0 0.2rem 0; }
       .video-banner .video .video-container p {
         display: -webkit-box;
         -webkit-line-clamp: 8;
@@ -2584,6 +2590,9 @@ html {
           background-size: cover;
           background-repeat: no-repeat;
           border-radius: 0.5rem; }
+        .alternated-highlights .item .text-wrapper .head-text h1, .alternated-highlights .item .text-wrapper .head-text h2, .alternated-highlights .item .text-wrapper .head-text h3,
+        .alternated-highlights .item .text-wrapper .head-text h4, .alternated-highlights .item .text-wrapper .head-text h5, .alternated-highlights .item .text-wrapper .head-text h6 {
+          line-height: 2rem; }
       .alternated-highlights .item .text-wrapper p {
         line-height: 1.3rem; }
     .alternated-highlights .item .image-container {
@@ -2646,24 +2655,17 @@ html {
 .section-header {
   width: 100%;
   box-sizing: border-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   color: #181818;
   background-color: #F2F6FA;
   padding: 5rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  background-size: cover;
-  background-position: center;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  background-size: cover;
+  background-position: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -2671,24 +2673,39 @@ html {
   -ms-flex-align: center;
   align-items: center;
   padding: 3rem; }
+  .section-header.small {
+    height: 25vh; }
+  .section-header.medium {
+    height: 50vh; }
+  .section-header.large {
+    height: 100vh; }
   .section-header .text-wrapper {
+    -webkit-flex: 5;
+    -ms-flex: 5;
+    flex: 5;
     box-sizing: border-box;
     min-width: 60%;
     display: inline-block;
     vertical-align: middle;
     padding: 3rem; }
     .section-header .text-wrapper p {
-      line-height: 1.9rem; }
+      line-height: 1.9rem;
+      max-width: 100%; }
     .section-header .text-wrapper h1, .section-header .text-wrapper h2, .section-header .text-wrapper h3,
     .section-header .text-wrapper h4, .section-header .text-wrapper h5, .section-header .text-wrapper h6 {
       font-weight: bold; }
   .section-header .image-container {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    padding: 2rem;
     display: inline-block;
     vertical-align: middle;
-    width: 30%;
+    min-width: 30%;
     margin: 0 2.5%; }
     .section-header .image-container img {
-      max-width: 100%; }
+      max-width: 100%;
+      max-height: 100%; }
   .section-header.section-header-centered {
     background-color: #4187d2;
     text-align: center;
@@ -2887,17 +2904,13 @@ hr.separator.small {
 
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-width: 321px) and (max-width: 767px) {
-  .illustration {
-    height: 100vh; }
-    .illustration.content-width {
-      padding: 2.5rem; } }
+  .illustration.content-width {
+    padding: 2.5rem; } }
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width: 320px) {
-  .illustration {
-    height: 33vh; }
-    .illustration.content-width {
-      padding: 2.5rem; } }
+  .illustration.content-width {
+    padding: 2.5rem; } }
 
 .paragraph {
   display: -webkit-flex;
@@ -2912,16 +2925,35 @@ hr.separator.small {
   -ms-flex-direction: row;
   flex-direction: row; }
   .paragraph .container {
-    padding: 1rem; }
+    padding: 2rem;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+    .paragraph .container h1, .paragraph .container h2, .paragraph .container h3,
+    .paragraph .container h4, .paragraph .container h5, .paragraph .container h6 {
+      border-bottom: 1px solid #DDDDDD;
+      padding-bottom: 1rem; }
     .paragraph .container p {
-      line-height: 1.2rem; }
+      line-height: 1.2rem;
+      max-width: 70rem;
+      width: 100%; }
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  .paragraph {
+    padding: 0; } }
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+  .paragraph {
+    padding: 0; } }
 
 .source-code {
   padding: 3rem;
   width: 100%; }
-  .source-code .text-wrapper .summary {
+  .source-code .text-wrapper p {
     max-width: 70rem;
-    line-height: 1.3rem;
+    line-height: 1.2rem;
     margin: 1rem 0; }
   .source-code pre {
     width: 100%; }
@@ -2929,3 +2961,13 @@ hr.separator.small {
       width: 100%;
       padding: 1rem;
       line-height: 1.4rem; }
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  .source-code {
+    padding: 1.5rem; } }
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+  .source-code {
+    padding: 1.5rem; } }

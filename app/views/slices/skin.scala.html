@@ -134,12 +134,6 @@
 		}
 	}
 
-	.section-header {
-		@if(skinDoc.getColor("skin.section_header_background")) { 
-			background-color: @skinDoc.getColor("skin.section_header_background").map(_.hex); 
-		}
-	}
-
 	.section-header .button {
 		@if(skinDoc.getColor("skin.section_header_button_text")) { 
 			color: @skinDoc.getColor("skin.section_header_button_text").map(_.hex); 

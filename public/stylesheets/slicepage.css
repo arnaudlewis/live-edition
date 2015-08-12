@@ -1,3 +1,16 @@
 .slicepage {
 	background-color: white;
 }
+
+.section-header.gradient-blue {
+  background: -webkit-linear-gradient(bottom left, #4a90e2 0%, #2d78c5 100%);
+  background: -moz-linear-gradient(bottom left, #4a90e2 0%, #2d78c5 100%);
+  background: -o-linear-gradient(bottom left, #4a90e2 0%, #2d78c5 100%);
+  background: -ms-linear-gradient(bottom left, #4a90e2 0%, #2d78c5 100%);
+  background: linear-gradient(bottom left, #4a90e2 0%, #2d78c5 100%);
+  background-image: -webkit-linear-gradient(-61deg,#357ecd -10%,rgba(47,121,199,0) 48%,#367fce 48%,#438ada 130%),-webkit-linear-gradient(0,#4a90e2 -90%,#2d78c5 150%);
+}
+
+.section-header.gradient-blue * {
+  color: white;
+}
