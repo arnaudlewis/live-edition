@@ -25,6 +25,18 @@ object Application extends Controller with PrismicController {
     Future.successful(PageNotFound)
   }
 
+  def index = PrismicAction { implicit request =>
+    for(
+      maybeDocument <- getBookmarkedDocument("home");
+      maybeSkin <- getBookmarkedDocument("skin")
+    ) yield (
+      maybeDocument match {
+        case Some(document) => Ok(views.html.index(document, maybeSkin))
+        case None => Redirect(routes.Application.brokenLink().absoluteURL())
+      }
+    )
+  }
+
    // -- Slicepage
    def slicepage(uid: String) = PrismicAction { implicit request =>
 
@@ -32,11 +44,11 @@ object Application extends Controller with PrismicController {
       maybePage.map { page =>
         val currentUid = page.uid.getOrElse(throw new IllegalArgumentException("The UID must be initialised. It can't be null."));
         if(currentUid != uid)
-        Future.successful(Results.Redirect(routes.Application.slicepage(uid)))
+          Future.successful(Results.Redirect(routes.Application.slicepage(uid)))
         else 
-        getBookmarkedDocument("skin").map {maybeSkin => 
-          Ok(views.html.slicepage(page, maybeSkin))
-        }
+          getBookmarkedDocument("skin").map { maybeSkin => 
+            Ok(views.html.slicepage(page, maybeSkin))
+          }
         } getOrElse(Future.successful(Results.Redirect(routes.Application.brokenLink().absoluteURL())))
       } 
     }

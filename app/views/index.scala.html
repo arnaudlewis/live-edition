@@ -1,0 +1,41 @@
+@(document: io.prismic.Document, maybeSkin: Option[io.prismic.Document])(implicit ctx: PrismicHelper.Context)
+
+@main("Super Café", maybeSkin) {
+
+<section class="col-12 centered @document.typ" style="max-width: 1280px; margin: auto">
+  @document.getSliceZone("slicepage.body").map { sliceZone =>
+    @for(slice <- sliceZone.slices) {
+
+      @slice.sliceType.mkString match {
+
+      case "section_header" => {
+      @slices.section_header(slice)}
+
+      case "centered_highlight" => {
+      @slices.centered_highlight(slice)}
+
+      case "alternated_highlights" => {
+      @slices.alternated_highlights(slice)}
+
+      case "featured_items" => {
+      @slices.featured_items(slice)}
+
+      case "collapsed_items" => {
+      @slices.collapsed_items(slice)}
+
+      case "separator" => {
+      @slices.separator(slice)}
+
+      case "illustration" => {
+      @slices.illustration(slice)}
+
+      case "slides" => {
+      @slices.slides(slice)}
+
+      case "video_banner" => {
+      @slices.video_banner(slice)}
+    }
+  }
+}
+</section>
+}
